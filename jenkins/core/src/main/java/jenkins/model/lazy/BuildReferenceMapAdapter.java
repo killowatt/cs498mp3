@@ -140,6 +140,12 @@ class BuildReferenceMapAdapter<R> implements SortedMap<Integer,R> {
 
     private class CommonAdapter
     {
+        public boolean remove(Object o) {
+//            return core.remove(o);
+            // TODO: to properly pass this onto core, we need to wrap o into BuildReference but also needs to figure out ID.
+            throw new UnsupportedOperationException();
+        }
+
         public boolean removeAll(Collection<?> c) {
             boolean b=false;
             for (Object o : c) {
@@ -226,12 +232,6 @@ class BuildReferenceMapAdapter<R> implements SortedMap<Integer,R> {
             return core.add(wrap(value));
         }
 
-        public boolean remove(Object o) {
-//            return core.remove(o);
-            // TODO: to properly pass this onto core, we need to wrap o into BuildReference but also needs to figure out ID.
-            throw new UnsupportedOperationException();
-        }
-
         public boolean containsAll(Collection<?> c) {
             for (Object o : c) {
                 if (!contains(o))
@@ -302,12 +302,6 @@ class BuildReferenceMapAdapter<R> implements SortedMap<Integer,R> {
 
         public boolean add(Entry<Integer, R> value) {
             return core.add(_wrap(value));
-        }
-
-        public boolean remove(Object o) {
-//            return core.remove(o);
-            // TODO: to properly pass this onto core, we need to wrap o into BuildReference but also needs to figure out ID.
-            throw new UnsupportedOperationException();
         }
 
         public boolean containsAll(Collection<?> c) {
