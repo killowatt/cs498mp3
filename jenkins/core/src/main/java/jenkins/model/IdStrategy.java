@@ -245,31 +245,23 @@ public abstract class IdStrategy extends AbstractDescribableImpl<IdStrategy> imp
                             buf.append(Character.toUpperCase(chars[i]));
                         }
                     } else if (c == '$') {
-                        StringBuilder hex = new StringBuilder(4);
+                        int capacity = 4;
+                        StringBuilder hex = new StringBuilder(capacity);
+
+                        int count = 0;
                         i++;
-                        if (i < chars.length) {
+                        while (i < chars.length || count < capacity)
+                        {
                             hex.append(chars[i]);
-                        } else {
+
+                            count++;
+                            i++;
+                        }
+
+                        if (count < capacity) {
                             break;
                         }
-                        i++;
-                        if (i < chars.length) {
-                            hex.append(chars[i]);
-                        } else {
-                            break;
-                        }
-                        i++;
-                        if (i < chars.length) {
-                            hex.append(chars[i]);
-                        } else {
-                            break;
-                        }
-                        i++;
-                        if (i < chars.length) {
-                            hex.append(chars[i]);
-                        } else {
-                            break;
-                        }
+
                         buf.append(Character.valueOf((char)Integer.parseInt(hex.toString(), 16)));
                     }
                 }

@@ -4,3 +4,6 @@ We should make extract to a new method
 
 Question 3:
 Feature envy, updateAndTrim should be in the Jenkins class.
+
+Question 4:
+Duplicated code, use a while loop
