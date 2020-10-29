@@ -1,3 +1,6 @@
+CS498-001
+William Yates
+
 Question 1:
 Switch statement (Nested if statement), a little hard to understan
 We should make extract to a new method
