@@ -138,7 +138,38 @@ class BuildReferenceMapAdapter<R> implements SortedMap<Integer,R> {
         return new LinkedHashMap<Integer,R>(this).toString();
     }
 
-    private class CollectionAdapter implements Collection<R> {
+    private class CommonAdapter
+    {
+        public boolean removeAll(Collection<?> c) {
+            boolean b=false;
+            for (Object o : c) {
+                b|=remove(o);
+            }
+            return b;
+        }
+
+
+        public boolean retainAll(Collection<?> c) {
+            // TODO: to properly pass this onto core, we need to wrap o into BuildReference but also needs to figure out ID.
+            throw new UnsupportedOperationException();
+        }
+
+        public void clear() {
+            core.clear();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return core.equals(o);
+        }
+
+        @Override
+        public int hashCode() {
+            return core.hashCode();
+        }
+    }
+
+    private class CollectionAdapter extends CommonAdapter implements Collection<R> {
         private final Collection<BuildReference<R>> core;
 
         private CollectionAdapter(Collection<BuildReference<R>> core) {
@@ -216,36 +247,9 @@ class BuildReferenceMapAdapter<R> implements SortedMap<Integer,R> {
             }
             return b;
         }
-
-        public boolean removeAll(Collection<?> c) {
-            boolean b=false;
-            for (Object o : c) {
-                b|=remove(o);
-            }
-            return b;
-        }
-
-        public boolean retainAll(Collection<?> c) {
-            // TODO: to properly pass this onto core, we need to wrap o into BuildReference but also needs to figure out ID.
-            throw new UnsupportedOperationException();
-        }
-
-        public void clear() {
-            core.clear();
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            return core.equals(o);
-        }
-
-        @Override
-        public int hashCode() {
-            return core.hashCode();
-        }
     }
 
-    private class SetAdapter implements Set<Entry<Integer, R>> {
+    private class SetAdapter extends CommonAdapter implements Set<Entry<Integer, R>> {
         private final Set<Entry<Integer, BuildReference<R>>> core;
 
         private SetAdapter(Set<Entry<Integer, BuildReference<R>>> core) {
@@ -320,33 +324,6 @@ class BuildReferenceMapAdapter<R> implements SortedMap<Integer,R> {
                 b |= add(r);
             }
             return b;
-        }
-
-        public boolean removeAll(Collection<?> c) {
-            boolean b=false;
-            for (Object o : c) {
-                b|=remove(o);
-            }
-            return b;
-        }
-
-        public boolean retainAll(Collection<?> c) {
-            // TODO: to properly pass this onto core, we need to wrap o into BuildReference but also needs to figure out ID.
-            throw new UnsupportedOperationException();
-        }
-
-        public void clear() {
-            core.clear();
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            return core.equals(o);
-        }
-
-        @Override
-        public int hashCode() {
-            return core.hashCode();
         }
 
         private Entry<Integer,BuildReference<R>> _wrap(Entry<Integer,R> e) {

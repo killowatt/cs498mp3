@@ -7,3 +7,7 @@ Feature envy, updateAndTrim should be in the Jenkins class.
 
 Question 4:
 Duplicated code, use a while loop
+
+Question 6: 
+BuildReferenceMapAdapter
+Common code moved to another class, both adapters inherit from common class
