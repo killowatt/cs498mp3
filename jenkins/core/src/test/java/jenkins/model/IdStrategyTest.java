@@ -17,7 +17,7 @@ public class IdStrategyTest {
     @Test public void tildeCapitalize() throws Exception {
         CaseSensitive caseSensitive = new CaseSensitive();
 
-        String testString = caseSensitive.idFromFilename("~abcd");
+        String testString = caseSensitive.idFromFilename("~a~b~c~d");
 
         assertEquals("ABCD", testString);
     }
